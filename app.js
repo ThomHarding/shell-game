@@ -2,10 +2,13 @@ let buttonOne = document.getElementById('cup-one-button');
 let buttonTwo = document.getElementById('cup-two-button');
 let buttonThree = document.getElementById('cup-three-button');
 let resetButton = document.getElementById('reset-button');
+let tryAgainButton = document.getElementById('try-again-button');
 
 let imageOne = document.getElementById('cup-one-img');
 let imageTwo = document.getElementById('cup-two-img');
 let imageThree = document.getElementById('cup-three-img');
+
+let buttonsArray = document.querySelectorAll('.cup-button');
 let cupArray = document.querySelectorAll('.cup-image');
 
 let totalDisplay = document.getElementById('total-guesses');
@@ -37,7 +40,14 @@ resetButton.addEventListener('click', () => {
     resetStyles();
 });
 
+tryAgainButton.addEventListener('click', () => {
+    resetStyles();
+});
+
 function resetStyles() {
+    for (let button of buttonsArray) {
+        button.disabled = false;
+    }
     imageOne.src = './assets/base-cup.png';
     imageTwo.src = './assets/base-cup.png';
     imageThree.src = './assets/base-cup.png';
@@ -60,6 +70,9 @@ function handleGuess(userGuess, correctSpot) {
         } else {
             cup.src = './assets/correct-cup.png';
         }
+    }
+    for (let button of buttonsArray) {
+        button.disabled = true;
     }
     updateDom();
 }
