@@ -1,6 +1,7 @@
 let buttonOne = document.getElementById('cup-one-button');
 let buttonTwo = document.getElementById('cup-two-button');
 let buttonThree = document.getElementById('cup-three-button');
+let resetButton = document.getElementById('reset-button');
 
 let imageOne = document.getElementById('cup-one-img');
 let imageTwo = document.getElementById('cup-two-img');
@@ -29,6 +30,13 @@ buttonThree.addEventListener('click', () => {
     handleGuess(imageThree, correctSpot);
 });
 
+resetButton.addEventListener('click', () => {
+    totalGuesses = 0;
+    correctGuesses = 0;
+    updateDom();
+    resetStyles();
+});
+
 function resetStyles() {
     imageOne.src = './assets/base-cup.png';
     imageTwo.src = './assets/base-cup.png';
@@ -53,6 +61,10 @@ function handleGuess(userGuess, correctSpot) {
             cup.src = './assets/correct-cup.png';
         }
     }
+    updateDom();
+}
+
+function updateDom() {
     totalDisplay.textContent = totalGuesses;
     correctDisplay.textContent = correctGuesses;
     incorrectDisplay.textContent = totalGuesses - correctGuesses;
