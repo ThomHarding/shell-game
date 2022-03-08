@@ -16,17 +16,17 @@ var correctGuesses = 0;
 
 buttonOne.addEventListener('click', () => {
     let correctSpot = getRandomItem(cupArray);
-    handleGuess(buttonOne, correctSpot);
+    handleGuess(imageOne, correctSpot);
 });
 
 buttonTwo.addEventListener('click', () => {
     let correctSpot = getRandomItem(cupArray);
-    handleGuess(buttonTwo, correctSpot);
+    handleGuess(imageTwo, correctSpot);
 });
 
 buttonThree.addEventListener('click', () => {
     let correctSpot = getRandomItem(cupArray);
-    handleGuess(buttonThree, correctSpot);
+    handleGuess(imageThree, correctSpot);
 });
 
 function resetStyles() {
