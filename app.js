@@ -21,8 +21,12 @@ var correctSpot;
 var totalGuesses = 0;
 var correctGuesses = 0;
 
+//accepts numTimes: integer, number of cups to create for this game
 function createGame(numTimes) {
     let i = 1;
+    //each cup is a container div and an image and button inside of it
+    //we create numTimes many cups first, then add buttons later
+    //if we add buttons inside the loop, it's harder to label them properly
     while (i <= numTimes) {
         createCup();
         i++;
@@ -30,6 +34,7 @@ function createGame(numTimes) {
     createButtons();
     beginGameButton.classList.add('hidden');
     numCupsDiv.classList.add('hidden');
+    //prevent user from adding more cups while they already exist
 }
 
 function createCup() {
@@ -42,6 +47,7 @@ function createCup() {
     cupsDiv.appendChild(cupDiv);
     cupsArray = document.querySelectorAll('.cup-image');
     //have to update this here so that the buttons know the cups exist after you make them
+    //otherwise, cupsArray is empty if you only check initially
 }
 
 function createButtons() {
@@ -52,6 +58,7 @@ function createButtons() {
         buttonDiv.classList.add('cup-button');
         buttonDiv.innerText = buttonNumber; 
         buttonDiv.addEventListener('click', () => {
+
             handleGuess(cupImg, correctSpot);
         });
         buttonNumber++;
