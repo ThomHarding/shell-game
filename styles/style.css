@@ -78,7 +78,7 @@ header img {
 p {
     margin: var(--gutter);
 }
-  
+
 footer {
     position: fixed;
     width: 100%;
@@ -88,4 +88,30 @@ footer {
     justify-content: flex-end;
     background-color: var(--color3);
     box-shadow: var(--shadow);
+}
+
+.cups {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+}
+
+.cup {
+    display: flex;
+    flex-direction: column;
+}
+
+.cup img {
+    height: 250px;
+    width: 200px;
+}
+
+.hidden {
+    display: none;
+}
+
+.num-cups {
+    display: flex;
+    flex-direction: row;
+    padding-top: 5%;
 }
