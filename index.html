@@ -25,20 +25,15 @@
                 Guess which cup the coin is under to win a prize of absolutely nothing.
             </h2>
             <div class="cups">
-                <div class="cup">
-                    <img src="./assets/base-cup.png" id="cup-one-img" class="cup-image">
-                    <button class="cup-button" id="cup-one-button">Cup One</button>
-                </div>
-                <div class="cup">
-                    <img src="./assets/base-cup.png" id="cup-two-img" class="cup-image">
-                    <button class="cup-button" id="cup-two-button">Cup Two</button>
-                </div>
-                <div class="cup">
-                    <img src="./assets/base-cup.png" id="cup-three-img" class="cup-image">
-                    <button class="cup-button" id="cup-three-button">Cup Three</button>
-                </div>
             </div>
-            <div class="statistics">
+            <div id="num-cups">
+                How many cups do you want in your game?
+                <input type="text" id="num-cups-input">
+            </div>
+            <div id="begin-game">
+                <button id="begin-game-button">Begin the Game</button>
+            </div>
+            <div id="statistics">
                 <p>Total guesses: <span id="total-guesses">0</span></p>
                 <p>Correct guesses: <span id="correct-guesses">0</span></p>
                 <p>Incorrect guesses: <span id="incorrect-guesses">0</span></p>

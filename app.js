@@ -1,36 +1,67 @@
-let buttonOne = document.getElementById('cup-one-button');
-let buttonTwo = document.getElementById('cup-two-button');
-let buttonThree = document.getElementById('cup-three-button');
 let resetButton = document.getElementById('reset-button');
-let tryAgainButton = document.getElementById('try-again-button');
 
-let imageOne = document.getElementById('cup-one-img');
-let imageTwo = document.getElementById('cup-two-img');
-let imageThree = document.getElementById('cup-three-img');
+let cupsDiv = document.querySelector('.cups');
+
+let numCupsInput = document.getElementById('num-cups-input');
+let numCupsDiv = document.getElementById('num-cups');
+
+let tryAgainButton = document.getElementById('try-again-button');
+let beginGameButton = document.getElementById('begin-game-button');
 
 let buttonsArray = document.querySelectorAll('.cup-button');
-let cupArray = document.querySelectorAll('.cup-image');
+let cupsArray = document.querySelectorAll('.cup-image');
 
 let totalDisplay = document.getElementById('total-guesses');
 let correctDisplay = document.getElementById('correct-guesses');
 let incorrectDisplay = document.getElementById('incorrect-guesses');
 
+var correctSpot;
+//initializing it here because I want to reset it every time the user clicks try again
+//At one point it stayed under the same cup until you reset the whole game but that didn't seem right
 var totalGuesses = 0;
 var correctGuesses = 0;
 
-buttonOne.addEventListener('click', () => {
-    let correctSpot = getRandomItem(cupArray);
-    handleGuess(imageOne, correctSpot);
-});
+function createGame(numTimes) {
+    let i = 1;
+    while (i <= numTimes) {
+        createCup();
+        i++;
+    }
+    createButtons();
+    beginGameButton.classList.add('hidden');
+    numCupsDiv.classList.add('hidden');
+}
 
-buttonTwo.addEventListener('click', () => {
-    let correctSpot = getRandomItem(cupArray);
-    handleGuess(imageTwo, correctSpot);
-});
+function createCup() {
+    let cupDiv = document.createElement('div');
+    cupDiv.classList.add('cup');
+    let cupImg = document.createElement('img');
+    cupImg.src = './assets/base-cup.png';
+    cupImg.classList.add('cup-image');
+    cupDiv.appendChild(cupImg);
+    cupsDiv.appendChild(cupDiv);
+    cupsArray = document.querySelectorAll('.cup-image');
+    //have to update this here so that the buttons know the cups exist after you make them
+}
 
-buttonThree.addEventListener('click', () => {
-    let correctSpot = getRandomItem(cupArray);
-    handleGuess(imageThree, correctSpot);
+function createButtons() {
+    let buttonNumber = 1;
+    for (let cup of cupsDiv.children) {
+        let buttonDiv = document.createElement('button');
+        let cupImg = cup.querySelector('img');
+        buttonDiv.classList.add('cup-button');
+        buttonDiv.innerText = buttonNumber; 
+        buttonDiv.addEventListener('click', () => {
+            handleGuess(cupImg, correctSpot);
+        });
+        buttonNumber++;
+        cup.appendChild(buttonDiv);
+    }
+    buttonsArray = document.querySelectorAll('.cup-button');
+}
+
+beginGameButton.addEventListener('click', () => {
+    createGame(numCupsInput.value);
 });
 
 resetButton.addEventListener('click', () => {
@@ -38,6 +69,9 @@ resetButton.addEventListener('click', () => {
     correctGuesses = 0;
     updateDom();
     resetStyles();
+    cupsDiv.textContent = '';
+    beginGameButton.classList.remove('hidden');
+    numCupsDiv.classList.remove('hidden');
 });
 
 tryAgainButton.addEventListener('click', () => {
@@ -48,9 +82,9 @@ function resetStyles() {
     for (let button of buttonsArray) {
         button.disabled = false;
     }
-    imageOne.src = './assets/base-cup.png';
-    imageTwo.src = './assets/base-cup.png';
-    imageThree.src = './assets/base-cup.png';
+    for (let cup of cupsArray) {
+        cup.src = './assets/base-cup.png';
+    }
 }
 
 function getRandomItem(arr) {
@@ -61,10 +95,11 @@ function getRandomItem(arr) {
 function handleGuess(userGuess, correctSpot) {
     resetStyles();
     totalGuesses++;
+    correctSpot = getRandomItem(cupsArray);
     if (userGuess === correctSpot) {
         correctGuesses++;
     }
-    for (let cup of cupArray) {
+    for (let cup of cupsArray) {
         if (cup !== correctSpot) {
             cup.src = './assets/incorrect-cup.png';
         } else {
@@ -74,6 +109,7 @@ function handleGuess(userGuess, correctSpot) {
     for (let button of buttonsArray) {
         button.disabled = true;
     }
+    //so many for loops. the price you pay for not knowing how many elements there are
     updateDom();
 }
 

@@ -103,5 +103,15 @@ footer {
 
 .cup img {
     height: 250px;
-    width: auto;
+    width: 200px;
+}
+
+.hidden {
+    display: none;
+}
+
+.num-cups {
+    display: flex;
+    flex-direction: row;
+    padding-top: 5%;
 }
